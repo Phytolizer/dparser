@@ -2,8 +2,8 @@
  Grammar Grammar
 */
 {
-#include "gramgram.h"
-#include "d.h"
+#include "gramgram.hpp"
+#include "d.hpp"
 }
 
 grammar: top_level_statement*;

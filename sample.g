@@ -3,7 +3,7 @@
 */
 
 {
-#include "d.h"
+#include "d.hpp"
 }
 
 ${declare longest_match program}

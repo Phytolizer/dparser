@@ -1,0 +1,127 @@
+[
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/dparse.dir/arg.cpp.o -c /home/kyle/Documents/dparser/arg.cpp",
+  "file": "/home/kyle/Documents/dparser/arg.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/dparse.dir/parse.cpp.o -c /home/kyle/Documents/dparser/parse.cpp",
+  "file": "/home/kyle/Documents/dparser/parse.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/dparse.dir/scan.cpp.o -c /home/kyle/Documents/dparser/scan.cpp",
+  "file": "/home/kyle/Documents/dparser/scan.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/dparse.dir/dsymtab.cpp.o -c /home/kyle/Documents/dparser/dsymtab.cpp",
+  "file": "/home/kyle/Documents/dparser/dsymtab.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/dparse.dir/util.cpp.o -c /home/kyle/Documents/dparser/util.cpp",
+  "file": "/home/kyle/Documents/dparser/util.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/dparse.dir/read_binary.cpp.o -c /home/kyle/Documents/dparser/read_binary.cpp",
+  "file": "/home/kyle/Documents/dparser/read_binary.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/dparse.dir/dparse_tree.cpp.o -c /home/kyle/Documents/dparser/dparse_tree.cpp",
+  "file": "/home/kyle/Documents/dparser/dparse_tree.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/dparse.dir/version.cpp.o -c /home/kyle/Documents/dparser/version.cpp",
+  "file": "/home/kyle/Documents/dparser/version.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/mkdparse.dir/mkdparse.cpp.o -c /home/kyle/Documents/dparser/mkdparse.cpp",
+  "file": "/home/kyle/Documents/dparser/mkdparse.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/mkdparse.dir/write_tables.cpp.o -c /home/kyle/Documents/dparser/write_tables.cpp",
+  "file": "/home/kyle/Documents/dparser/write_tables.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/mkdparse.dir/grammar.g.cpp.o -c /home/kyle/Documents/dparser/grammar.g.cpp",
+  "file": "/home/kyle/Documents/dparser/grammar.g.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/mkdparse.dir/gram.cpp.o -c /home/kyle/Documents/dparser/gram.cpp",
+  "file": "/home/kyle/Documents/dparser/gram.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/mkdparse.dir/lex.cpp.o -c /home/kyle/Documents/dparser/lex.cpp",
+  "file": "/home/kyle/Documents/dparser/lex.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/mkdparse.dir/lr.cpp.o -c /home/kyle/Documents/dparser/lr.cpp",
+  "file": "/home/kyle/Documents/dparser/lr.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/mkdparse.dir/version.cpp.o -c /home/kyle/Documents/dparser/version.cpp",
+  "file": "/home/kyle/Documents/dparser/version.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/test_parser.dir/test_parser.cpp.o -c /home/kyle/Documents/dparser/test_parser.cpp",
+  "file": "/home/kyle/Documents/dparser/test_parser.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/test_parser.dir/my.g.d_parser.cpp.o -c /home/kyle/Documents/dparser/build/my.g.d_parser.cpp",
+  "file": "/home/kyle/Documents/dparser/build/my.g.d_parser.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/sample_parser.dir/sample_parser.cpp.o -c /home/kyle/Documents/dparser/sample_parser.cpp",
+  "file": "/home/kyle/Documents/dparser/sample_parser.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/sample_parser.dir/sample.g.d_parser.cpp.o -c /home/kyle/Documents/dparser/build/sample.g.d_parser.cpp",
+  "file": "/home/kyle/Documents/dparser/build/sample.g.d_parser.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/make_dparser.dir/make_dparser.cpp.o -c /home/kyle/Documents/dparser/make_dparser.cpp",
+  "file": "/home/kyle/Documents/dparser/make_dparser.cpp"
+},
+
+{
+  "directory": "/home/kyle/Documents/dparser/build",
+  "command": "/home/linuxbrew/.linuxbrew/bin/clang++  -DD_MAJOR_VERSION=1 -DD_MINOR_VERSION=30 -I../  -g   -o CMakeFiles/make_dparser.dir/version.cpp.o -c /home/kyle/Documents/dparser/version.cpp",
+  "file": "/home/kyle/Documents/dparser/version.cpp"
+}
+]

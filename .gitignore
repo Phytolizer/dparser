@@ -2,9 +2,9 @@ D_BUILD_VERSION
 *.o
 *.a
 *.swp
-*.d_parser.c
+*.d_parser.cpp
 tests/*.out
-tests/*.d_parser.c
+tests/*.d_parser.cpp
 make_dparser
 test_parser
 sample_parser

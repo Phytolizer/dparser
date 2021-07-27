@@ -1,0 +1,96 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "dparser",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "dparse::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dparse-Debug-63a32e859337c8579fe7.json",
+					"name" : "dparse",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "make_dparser::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-make_dparser-Debug-45db688b2218bb99e47d.json",
+					"name" : "make_dparser",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mkdparse::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mkdparse-Debug-e79a54206cc1c057f599.json",
+					"name" : "mkdparse",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "sample_parser::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-sample_parser-Debug-9206ec5c089d5b3515d6.json",
+					"name" : "sample_parser",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_parser::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_parser-Debug-f5682f91b46700d15405.json",
+					"name" : "test_parser",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/kyle/Documents/dparser/build",
+		"source" : "/home/kyle/Documents/dparser"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

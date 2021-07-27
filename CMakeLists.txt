@@ -15,55 +15,55 @@ option(USE_FREELISTS "OPTIMIZE" TRUE)
 
 
 add_executable(make_dparser
-  make_dparser.c
-  version.c
+  make_dparser.cpp
+  version.cpp
 )
 
 add_executable(sample_parser
-  sample_parser.c
+  sample_parser.cpp
   sample.g
-  ${CMAKE_CURRENT_BINARY_DIR}/sample.g.d_parser.c
+  ${CMAKE_CURRENT_BINARY_DIR}/sample.g.d_parser.cpp
 )
 add_dependencies(sample_parser make_dparser)
 
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/sample.g.d_parser.c
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/sample.g.d_parser.cpp
   DEPENDS make_dparser sample.g
   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} VERBATIM
-  COMMAND $<TARGET_FILE:make_dparser> ${CMAKE_CURRENT_SOURCE_DIR}/sample.g -o ${CMAKE_CURRENT_BINARY_DIR}/sample.g.d_parser.c
+  COMMAND $<TARGET_FILE:make_dparser> ${CMAKE_CURRENT_SOURCE_DIR}/sample.g -o ${CMAKE_CURRENT_BINARY_DIR}/sample.g.d_parser.cpp
 )
 
 add_executable(test_parser
-  test_parser.c
+  test_parser.cpp
   my.g
-  ${CMAKE_CURRENT_BINARY_DIR}/my.g.d_parser.c
+  ${CMAKE_CURRENT_BINARY_DIR}/my.g.d_parser.cpp
 )
 add_dependencies(test_parser make_dparser)
 
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/my.g.d_parser.c
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/my.g.d_parser.cpp
   DEPENDS make_dparser my.g
   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} VERBATIM
-  COMMAND $<TARGET_FILE:make_dparser> ${CMAKE_CURRENT_SOURCE_DIR}/my.g -o ${CMAKE_CURRENT_BINARY_DIR}/my.g.d_parser.c
+  COMMAND $<TARGET_FILE:make_dparser> ${CMAKE_CURRENT_SOURCE_DIR}/my.g -o ${CMAKE_CURRENT_BINARY_DIR}/my.g.d_parser.cpp
 )
 
 add_library(mkdparse STATIC
-  mkdparse.c
-  write_tables.c
-  grammar.g.c
-  gram.c
-  lex.c
-  lr.c
-  version.c
+  mkdparse.cpp
+  write_tables.cpp
+  grammar.g.cpp
+  gram.cpp
+  lex.cpp
+  lr.cpp
+  version.cpp
 )
 
 add_library(dparse STATIC
-  arg.c
-  parse.c
-  scan.c
-  dsymtab.c
-  util.c
-  read_binary.c
-  dparse_tree.c
-  version.c
+  arg.cpp
+  parse.cpp
+  scan.cpp
+  dsymtab.cpp
+  util.cpp
+  read_binary.cpp
+  dparse_tree.cpp
+  version.cpp
 )
 
 target_link_libraries(make_dparser PRIVATE mkdparse dparse)
