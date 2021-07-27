@@ -85,10 +85,11 @@ typedef uint16_t uint16;
 typedef unsigned int uint;
 
 #ifdef D_DEBUG
-#define DBG(_x)            \
-  if (d_debug_level > 1) { \
-    _x;                    \
-  }
+#define DBG(_x)                                                                                                        \
+    if (d_debug_level > 1)                                                                                             \
+    {                                                                                                                  \
+        _x;                                                                                                            \
+    }
 #else
 #define DBG(_x)
 #endif

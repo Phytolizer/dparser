@@ -53,73 +53,83 @@ static ArgumentState arg_state = {0, 0, "program", arg_desc};
 
 extern D_ParserTables parser_tables_dparser_gram;
 
-static void help(ArgumentState *arg_state, char *arg_unused) {
-  char ver[60];
-  d_version(ver);
-  fprintf(stderr, "Make DParser Version %s ", ver);
-  fprintf(stderr, "Copyright (c) 2002-2004 John Plevyak\n");
-  usage(arg_state, arg_unused);
+static void help(ArgumentState *arg_state, char *arg_unused)
+{
+    char ver[60];
+    d_version(ver);
+    fprintf(stderr, "Make DParser Version %s ", ver);
+    fprintf(stderr, "Copyright (c) 2002-2004 John Plevyak\n");
+    usage(arg_state, arg_unused);
 }
 
-int main(int argc, char *argv[]) {
-  char *grammar_pathname;
-  Grammar *g;
-  (void)argc;
+int main(int argc, char *argv[])
+{
+    char *grammar_pathname;
+    Grammar *g;
+    (void)argc;
 
-  process_args(&arg_state, argv);
-  if (arg_state.nfile_arguments != 1) {
-    help(&arg_state, NULL);
-  }
-  grammar_pathname = arg_state.file_argument[0];
-  g = new_D_Grammar(grammar_pathname);
-  /* grammar construction options */
-  g->set_op_priority_from_rule = set_op_priority_from_rule;
-  g->right_recursive_BNF = right_recursive_BNF;
-  g->states_for_whitespace = states_for_whitespace;
-  g->states_for_all_nterms = states_for_all_nterms;
-  g->tokenizer = tokenizer;
-  g->longest_match = longest_match;
-  /* grammar writing options */
-  strcpy(g->grammar_ident, grammar_ident);
-  if (ident_from_filename) {
-    char *n = strrchr(grammar_pathname, '/'), *e;
-    n = n ? n : grammar_pathname;
-    e = strchr(n, '.');
-    e = e ? e : n + strlen(n);
-    memcpy(g->grammar_ident, n, e - n);
-    g->grammar_ident[e - n] = 0;
-  }
-  g->scanner_blocks = scanner_blocks;
-  g->scanner_block_size = scanner_block_size;
-  g->write_line_directives = write_line_directives;
-  g->write_header = write_header;
-  g->token_type = token_type;
-  strcpy(g->write_extension, write_extension);
-
-  if (!output_file[0]) {
-    strncpy(output_file, grammar_pathname, sizeof(output_file) - 1);
-    strncat(output_file, ".d_parser.", sizeof(output_file) - strlen(output_file) - 1);
-    strncat(output_file, g->write_extension, sizeof(output_file) - strlen(output_file) - 1);
-  }
-  g->write_pathname = output_file;
-
-  /* don't print anything to stdout, when the grammar is printed there */
-  if (d_rdebug_grammar_level > 0) {
-    d_verbose_level = 0;
-  }
-
-  mkdparse(g, grammar_pathname);
-
-  if (d_rdebug_grammar_level == 0) {
-    if (write_c_tables(g) < 0) {
-      d_fail("unable to write C tables '%s'", grammar_pathname);
+    process_args(&arg_state, argv);
+    if (arg_state.nfile_arguments != 1)
+    {
+        help(&arg_state, NULL);
     }
-  } else {
-    print_rdebug_grammar(g, grammar_pathname);
-  }
+    grammar_pathname = arg_state.file_argument[0];
+    g = new_D_Grammar(grammar_pathname);
+    /* grammar construction options */
+    g->set_op_priority_from_rule = set_op_priority_from_rule;
+    g->right_recursive_BNF = right_recursive_BNF;
+    g->states_for_whitespace = states_for_whitespace;
+    g->states_for_all_nterms = states_for_all_nterms;
+    g->tokenizer = tokenizer;
+    g->longest_match = longest_match;
+    /* grammar writing options */
+    strcpy(g->grammar_ident, grammar_ident);
+    if (ident_from_filename)
+    {
+        char *n = strrchr(grammar_pathname, '/'), *e;
+        n = n ? n : grammar_pathname;
+        e = strchr(n, '.');
+        e = e ? e : n + strlen(n);
+        memcpy(g->grammar_ident, n, e - n);
+        g->grammar_ident[e - n] = 0;
+    }
+    g->scanner_blocks = scanner_blocks;
+    g->scanner_block_size = scanner_block_size;
+    g->write_line_directives = write_line_directives;
+    g->write_header = write_header;
+    g->token_type = token_type;
+    strcpy(g->write_extension, write_extension);
 
-  free_args(&arg_state);
-  free_D_Grammar(g);
-  g = 0;
-  return 0;
+    if (!output_file[0])
+    {
+        strncpy(output_file, grammar_pathname, sizeof(output_file) - 1);
+        strncat(output_file, ".d_parser.", sizeof(output_file) - strlen(output_file) - 1);
+        strncat(output_file, g->write_extension, sizeof(output_file) - strlen(output_file) - 1);
+    }
+    g->write_pathname = output_file;
+
+    /* don't print anything to stdout, when the grammar is printed there */
+    if (d_rdebug_grammar_level > 0)
+    {
+        d_verbose_level = 0;
+    }
+
+    mkdparse(g, grammar_pathname);
+
+    if (d_rdebug_grammar_level == 0)
+    {
+        if (write_c_tables(g) < 0)
+        {
+            d_fail("unable to write C tables '%s'", grammar_pathname);
+        }
+    }
+    else
+    {
+        print_rdebug_grammar(g, grammar_pathname);
+    }
+
+    free_args(&arg_state);
+    free_D_Grammar(g);
+    g = 0;
+    return 0;
 }

@@ -6,13 +6,14 @@
 
 #include <stdlib.h>
 #if defined(__cplusplus)
-extern "C" {
+extern "C"
+{
 #endif
 
-struct Grammar;
+    struct Grammar;
 
-void mkdparse(struct Grammar *g, char *grammar_pathname);
-void mkdparse_from_string(struct Grammar *g, char *str);
+    void mkdparse(struct Grammar *g, char *grammar_pathname);
+    void mkdparse_from_string(struct Grammar *g, char *str);
 
 #if defined(__cplusplus)
 }

@@ -39,72 +39,85 @@ ArgumentDescription arg_desc[] = {
 
 ArgumentState arg_state = {0, 0, "program", arg_desc};
 
-static void help(ArgumentState *arg_state, char *arg_unused) {
-  char ver[60];
-  d_version(ver);
-  fprintf(stderr, "Sample DParser Version %s ", ver);
-  fprintf(stderr, "Copyright (c) 2002-2013 John Plevyak\n");
-  usage(arg_state, arg_unused);
+static void help(ArgumentState *arg_state, char *arg_unused)
+{
+    char ver[60];
+    d_version(ver);
+    fprintf(stderr, "Sample DParser Version %s ", ver);
+    fprintf(stderr, "Copyright (c) 2002-2013 John Plevyak\n");
+    usage(arg_state, arg_unused);
 }
 
 char *ops = "+";
 void *ops_cache = NULL;
-int ops_scan(char *ops, void *ops_cache, d_loc_t *loc, unsigned char *op_assoc, int *op_priority) {
-  (void)ops;
-  (void)ops_cache;
-  if (loc->s[0] == '+') {
-    loc->s++;
-    *op_assoc = ASSOC_BINARY_LEFT;
-    *op_priority = 9500;
-    return 1;
-  }
-  return 0;
+int ops_scan(char *ops, void *ops_cache, d_loc_t *loc, unsigned char *op_assoc, int *op_priority)
+{
+    (void)ops;
+    (void)ops_cache;
+    if (loc->s[0] == '+')
+    {
+        loc->s++;
+        *op_assoc = ASSOC_BINARY_LEFT;
+        *op_priority = 9500;
+        return 1;
+    }
+    return 0;
 }
 
-int main(int argc, char *argv[]) {
-  int i, len = 0;
-  char *buf = NULL, *fn;
-  D_Parser *p;
-  D_ParseNode *pn = NULL;
-  (void)argc;
+int main(int argc, char *argv[])
+{
+    int i, len = 0;
+    char *buf = NULL, *fn;
+    D_Parser *p;
+    D_ParseNode *pn = NULL;
+    (void)argc;
 
-  process_args(&arg_state, argv);
-  if (!arg_state.nfile_arguments) {
-    help(&arg_state, NULL);
-  }
-  p = new_D_Parser(&parser_tables_gram, SIZEOF_MY_PARSE_NODE);
-  p->save_parse_tree = save_parse_tree;
-  p->ambiguity_fn = ambiguity_count_fn;
-  p->partial_parses = partial_parses;
-  p->dont_fixup_internal_productions = !fixup;
-  p->fixup_EBNF_productions = fixup_ebnf;
-  p->dont_compare_stacks = !compare_stacks;
-  p->commit_actions_interval = commit_actions_interval;
-  p->start_state = start_state;
-  p->dont_use_greediness_for_disambiguation = dont_use_greediness_for_disambiguation;
-  p->dont_use_height_for_disambiguation = dont_use_height_for_disambiguation;
-  for (i = 0; i < arg_state.nfile_arguments; i++) {
-    p->loc.pathname = arg_state.file_argument[i];
-    p->loc.line = 1;
-    p->loc.col = 0;
-    if (buf_read(arg_state.file_argument[i], &buf, &len) > 0) {
-      pn = dparse(p, buf, len);
-    } else {
-      d_fail("unable to read file '%s'", arg_state.file_argument[i]);
+    process_args(&arg_state, argv);
+    if (!arg_state.nfile_arguments)
+    {
+        help(&arg_state, NULL);
     }
-    if (pn) {
-      free_D_ParseNode(p, pn);
-      pn = 0;
-    } else {
-      fn = d_dup_pathname_str(p->loc.pathname);
-      fprintf(stderr, "fatal error, '%s' line %d\n", fn, p->loc.line);
-      FREE(fn);
+    p = new_D_Parser(&parser_tables_gram, SIZEOF_MY_PARSE_NODE);
+    p->save_parse_tree = save_parse_tree;
+    p->ambiguity_fn = ambiguity_count_fn;
+    p->partial_parses = partial_parses;
+    p->dont_fixup_internal_productions = !fixup;
+    p->fixup_EBNF_productions = fixup_ebnf;
+    p->dont_compare_stacks = !compare_stacks;
+    p->commit_actions_interval = commit_actions_interval;
+    p->start_state = start_state;
+    p->dont_use_greediness_for_disambiguation = dont_use_greediness_for_disambiguation;
+    p->dont_use_height_for_disambiguation = dont_use_height_for_disambiguation;
+    for (i = 0; i < arg_state.nfile_arguments; i++)
+    {
+        p->loc.pathname = arg_state.file_argument[i];
+        p->loc.line = 1;
+        p->loc.col = 0;
+        if (buf_read(arg_state.file_argument[i], &buf, &len) > 0)
+        {
+            pn = dparse(p, buf, len);
+        }
+        else
+        {
+            d_fail("unable to read file '%s'", arg_state.file_argument[i]);
+        }
+        if (pn)
+        {
+            free_D_ParseNode(p, pn);
+            pn = 0;
+        }
+        else
+        {
+            fn = d_dup_pathname_str(p->loc.pathname);
+            fprintf(stderr, "fatal error, '%s' line %d\n", fn, p->loc.line);
+            FREE(fn);
+        }
+        if (buf)
+        {
+            FREE(buf);
+        }
     }
-    if (buf) {
-      FREE(buf);
-    }
-  }
-  free_D_Parser(p);
-  free_args(&arg_state);
-  exit(0);
+    free_D_Parser(p);
+    free_args(&arg_state);
+    exit(0);
 }

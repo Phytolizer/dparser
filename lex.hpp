@@ -9,18 +9,20 @@
 
 struct Grammar;
 
-typedef struct ScanStateTransition {
-  uint index;
-  VecAction live_diff;
-  VecAction accepts_diff;
+typedef struct ScanStateTransition
+{
+    uint index;
+    VecAction live_diff;
+    VecAction accepts_diff;
 } ScanStateTransition;
 
-typedef struct ScanState {
-  uint index;
-  struct ScanState *chars[256];
-  VecAction accepts;
-  VecAction live;
-  ScanStateTransition *transition[256];
+typedef struct ScanState
+{
+    uint index;
+    struct ScanState *chars[256];
+    VecAction accepts;
+    VecAction live;
+    ScanStateTransition *transition[256];
 } ScanState;
 
 void build_scanners(struct Grammar *g);
