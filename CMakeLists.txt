@@ -14,6 +14,7 @@ option(LEAK_DETECT "LEAK_DETECT" FALSE)
 option(USE_FREELISTS "OPTIMIZE" TRUE)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=writable-strings")
+set(CMAKE_CXX_CLANG_TIDY clang-tidy)
 
 add_executable(make_dparser
   make_dparser.cpp

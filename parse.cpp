@@ -916,7 +916,6 @@ static int check_path_priorities_internal(VecZNode *path)
                     {
                         for (jj = 0; jj < zz->sns.v[kk]->zns.n; jj++)
                         {
-                            one = 1;
                             zzz = zz->sns.v[kk]->zns.v[jj];
                             if (zzz && !check_assoc_priority(pn0, zz->pn, zzz->pn))
                             {
@@ -2152,7 +2151,6 @@ static void cmp_stacks(Parser *p)
                 *bl = b->next;
                 unref_sn(p, b->snode);
                 FREE(b);
-                b = *bl;
                 break;
             }
             if (az->pn->op_priority < bz->pn->op_priority)
@@ -2732,7 +2730,7 @@ static int exhaustive_parse(Parser *p, int state)
     int progress = 0, ready = 0;
     d_loc_t loc;
 
-    pos = p->user.loc.ws = p->user.loc.s = p->start;
+    p->user.loc.ws = p->user.loc.s = p->start;
     loc = p->user.loc;
     p->user.initial_white_space_fn((D_Parser *)p, &loc, &p->user.initial_globals);
     /* initial state */
@@ -2749,7 +2747,7 @@ static int exhaustive_parse(Parser *p, int state)
     pn = add_PNode(p, 0, &loc, loc.s, &tpn, 0, 0, 0);
     ref_pn(pn);
     sn->last_pn = pn;
-    set_add_znode(&sn->zns, (z = new_ZNode(p, pn)));
+    set_add_znode(&sn->zns, new_ZNode(p, pn));
     while (1)
     {
         /* reduce all */

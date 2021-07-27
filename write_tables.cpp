@@ -999,7 +999,6 @@ static void write_scanner_data(File *fp, Grammar *g, char *tag)
         int k;
         s = g->states.v[i];
         ss = &s->scanner.states;
-        ivsblock = 0;
         if (ss->n && !s->same_shifts)
         {
             /* output scanner state transition tables */

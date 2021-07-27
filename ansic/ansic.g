@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-char *reserved_words[] = { "auto", "break", "case", "char", "const", 
+const char *reserved_words[] = { "auto", "break", "case", "char", "const", 
   "continue", "default", "do", "double", "else", "enum", "extern", "float", 
   "for", "goto", "if", "int", "long", "register", "return", "short", "signed",
   "sizeof", "static", "struct", "typedef", "union", "unsigned", "void", 

@@ -1490,7 +1490,7 @@ void build_eq(Grammar *g)
                     {
                         goto Lcontinue;
                     }
-                    if ((x = s->reduce_actions.v[k]->rule->elems.n) != (xx = ss->reduce_actions.v[k]->rule->elems.n))
+                    if (s->reduce_actions.v[k]->rule->elems.n != ss->reduce_actions.v[k]->rule->elems.n)
                     {
                         if ((ee->diff_rule && ee->diff_rule != ss->reduce_actions.v[k]->rule) ||
                             (e->diff_rule && e->diff_rule != s->reduce_actions.v[k]->rule))

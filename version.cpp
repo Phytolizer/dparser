@@ -13,6 +13,6 @@ void d_version(char *v)
         char scommit[43];
         strcpy(scommit, &git_commit_id[5]);
         scommit[40] = 0;
-        v += sprintf(v, ".%s", scommit);
+        sprintf(v, ".%s", scommit);
     }
 }
