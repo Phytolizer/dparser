@@ -145,11 +145,11 @@ integer: "-?([0-9]|0(x|X))[0-9]*(u|U|b|B|w|W|L|l)*" $term -1;
 float: "[\-+]?([0-9]+\.[0-9]*|\.[0-9]+)([eE][\-+]?[0-9]+)?" $term -2;
 
 {
-  char *reserved_words[] = { "if", "else", "extern", "sizeof", "int", "uint",
+  const char *reserved_words[] = { "if", "else", "extern", "sizeof", "int", "uint",
     "int8", "uint8", "int16", "uint16", "int32", "uint32", "int64", "uint64",
     "float", "float32", "float64", NULL };
 
-  static int is_one_of(char *s, char **list) {
+  static int is_one_of(char *s, const char **list) {
     while (*list) { if (!strcmp(s, *list)) return 1; list++; }
     return 0;
   }

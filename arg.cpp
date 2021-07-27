@@ -3,7 +3,7 @@
 */
 #include "d.hpp"
 
-static char *SPACES = "                                                                               ";
+static const char *SPACES = "                                                                               ";
 static char *arg_types_keys = (char *)"ISDfF+TL";
 static char *arg_types_desc[] = {(char *)"int     ", (char *)"string  ", (char *)"double  ",
                                  (char *)"set off ", (char *)"set on  ", (char *)"incr    ",

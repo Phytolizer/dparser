@@ -11,3 +11,5 @@ sample_parser
 /.build
 /.vs
 /.install
+/.cache
+/build

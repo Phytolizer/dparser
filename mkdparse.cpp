@@ -6,7 +6,7 @@
 #include "d.hpp"
 #include "mkdparse.hpp"
 
-static void mkdparse_internal(Grammar *g, char *grammar_pathname, char *str)
+static void mkdparse_internal(Grammar *g, const char *grammar_pathname, char *str)
 {
     if (!grammar_pathname)
     {

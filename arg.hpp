@@ -20,12 +20,12 @@ typedef void ArgumentFunction(struct ArgumentState *arg_state, char *arg);
 
 typedef struct
 {
-    char *name;
+    const char *name;
     char key;
-    char *description;
-    char *type;
+    const char *description;
+    const char *type;
     void *location;
-    char *env;
+    const char *env;
     ArgumentFunction *pfn;
 } ArgumentDescription;
 
@@ -33,7 +33,7 @@ typedef struct ArgumentState
 {
     char **file_argument;
     int nfile_arguments;
-    char *program_name;
+    const char *program_name;
     ArgumentDescription *desc;
 } ArgumentState;
 

@@ -48,7 +48,7 @@ static void help(ArgumentState *arg_state, char *arg_unused)
     usage(arg_state, arg_unused);
 }
 
-char *ops = "+";
+const char *ops = "+";
 void *ops_cache = NULL;
 int ops_scan(char *ops, void *ops_cache, d_loc_t *loc, unsigned char *op_assoc, int *op_priority)
 {

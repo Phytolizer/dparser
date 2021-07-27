@@ -579,7 +579,6 @@ static void build_transitions(LexState *ls, Scanner *s)
     {
         FREE(trans);
     }
-    j = 0;
     set_to_vec(&s->transitions);
     for (i = 0; i < s->transitions.n; i++)
     {

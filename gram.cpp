@@ -7,7 +7,7 @@
 
 extern D_ParserTables parser_tables_dparser_gram;
 
-static char *action_types[] = {"ACCEPT", "SHIFT", "REDUCE"};
+static const char *action_types[] = {"ACCEPT", "SHIFT", "REDUCE"};
 
 static void print_state(State *s);
 
@@ -664,7 +664,7 @@ void finish_productions(Grammar *g)
     rr->elems.v[0]->e.nterm = g->productions.v[1];
 }
 
-Production *lookup_production(Grammar *g, char *name, uint l)
+Production *lookup_production(Grammar *g, const char *name, uint l)
 {
     uint i;
 
@@ -680,7 +680,7 @@ Production *lookup_production(Grammar *g, char *name, uint l)
     return NULL;
 }
 
-static Term *lookup_token(Grammar *g, char *name, int l)
+static Term *lookup_token(Grammar *g, const char *name, int l)
 {
     uint i;
 
@@ -921,7 +921,7 @@ void print_elem(Elem *ee)
 struct EnumStr
 {
     uint e;
-    char *s;
+    const char *s;
 } assoc_strings[] = {{ASSOC_NONE, "$none"},
                      {ASSOC_NARY_LEFT, "$left"},
                      {ASSOC_NARY_RIGHT, "$right"},
@@ -931,7 +931,7 @@ struct EnumStr
                      {ASSOC_BINARY_RIGHT, "$binary_right"},
                      {ASSOC_NO, "$noassoc"}};
 
-static char *assoc_str(uint e)
+static const char *assoc_str(uint e)
 {
     uint i;
 
@@ -1055,7 +1055,7 @@ static void print_item(Item *i)
     printf("\n");
 }
 
-static void print_conflict(char *kind, uint *conflict)
+static void print_conflict(const char *kind, uint *conflict)
 {
     if (!*conflict)
     {
@@ -1737,7 +1737,7 @@ void free_D_Grammar(Grammar *g)
     FREE(g);
 }
 
-int parse_grammar(Grammar *g, char *pathname, char *sarg)
+int parse_grammar(Grammar *g, const char *pathname, char *sarg)
 {
     D_Parser *p;
     int res = 0;
@@ -2148,12 +2148,12 @@ static void print_production(Production *p)
 {
     uint j, k;
     Rule *r;
-    char *opening[] = {"", "\n\t  [ printf(\"", "\n\t  { printf(\""};
-    char *closing[] = {"\n", "\\n\"); ]\n", "\\n\"); }\n"};
-    char *middle[] = {"\n\t:   ", "  <-  ", "  <=  "};
-    char *assoc[] = {"$", "#", "#"};
-    char *speculative_final_closing = "\\n\"); ]"; /* closing[1] without final newline */
-    char *next_or_rule = "\t|   ";
+    const char *opening[] = {"", "\n\t  [ printf(\"", "\n\t  { printf(\""};
+    const char *closing[] = {"\n", "\\n\"); ]\n", "\\n\"); }\n"};
+    const char *middle[] = {"\n\t:   ", "  <-  ", "  <=  "};
+    const char *assoc[] = {"$", "#", "#"};
+    const char *speculative_final_closing = "\\n\"); ]"; /* closing[1] without final newline */
+    const char *next_or_rule = "\t|   ";
     /*  char *regex_production = "  ::=  "; */
 
     uint variant = 0;
@@ -2242,7 +2242,7 @@ static void print_productions(Grammar *g, char *pathname)
     }
 }
 
-static void print_declare(char *s, char *n)
+static void print_declare(const char *s, const char *n)
 {
     while (*n && (isspace_(*n) || isdigit_(*n)))
     {

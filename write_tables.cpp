@@ -23,7 +23,7 @@ void myfprintf(FILE *f, const char *format, ...)
 
 typedef struct OffsetEntry
 {
-    char *name;
+    const char *name;
     int len;
     int offset;
 } OffsetEntry;
@@ -141,7 +141,6 @@ static void free_tables(File *f)
     {
         if (f->entries.v[i])
         {
-            FREE(f->entries.v[i]->name);
             FREE(f->entries.v[i]);
             f->entries.v[i] = 0;
         }
@@ -186,7 +185,7 @@ static void make_room_in_buf(Buf *buf, size_t size)
     }
 }
 
-static void new_offset(File *fp, char *name)
+static void new_offset(File *fp, const char *name)
 {
     OffsetEntry *entry = (OffsetEntry *)MALLOC(sizeof(OffsetEntry));
     memset(entry, 0, sizeof(OffsetEntry));
@@ -208,7 +207,7 @@ static uintptr_t make_string(File *fp, const char *name)
     return dest - buf->start;
 }
 
-static OffsetEntry *search_for_offset(File *fp, char *name)
+static OffsetEntry *search_for_offset(File *fp, const char *name)
 {
     uint32 tt = strhashl(name, strlen(name));
     OffsetEntrySet *v = &fp->entries;
@@ -237,7 +236,7 @@ static OffsetEntry *search_for_offset(File *fp, char *name)
     return 0;
 }
 
-static OffsetEntry *get_offset(File *fp, char *name, ...)
+static OffsetEntry *get_offset(File *fp, const char *name, ...)
 {
     int n;
     char buf[256];
@@ -250,7 +249,7 @@ static OffsetEntry *get_offset(File *fp, char *name, ...)
     return search_for_offset(fp, buf);
 }
 
-static char *make_name(char *fmt, ...)
+static char *make_name(const char *fmt, ...)
 {
     int n;
     char *h_buf, buf[256];
@@ -264,7 +263,7 @@ static char *make_name(char *fmt, ...)
     return h_buf;
 }
 
-static void print_no_comma(File *fp, char *str)
+static void print_no_comma(File *fp, const char *str)
 {
     if (!fp->binary)
     {
@@ -273,7 +272,7 @@ static void print_no_comma(File *fp, char *str)
     }
 }
 
-static void print(File *fp, char *str)
+static void print(File *fp, const char *str)
 {
     if (!fp->binary)
     {
@@ -374,7 +373,7 @@ static void start_array_internal(File *fp, int length, int size)
     fp->elem_size = size;
 }
 
-static void start_struct_fn(File *fp, int size, char *type_str, char *name, char *whitespace)
+static void start_struct_fn(File *fp, int size, const char *type_str, const char *name, const char *whitespace)
 {
     new_offset(fp, name);
     fp->first_member = 1;
@@ -401,8 +400,8 @@ static void start_struct_in_array(File *fp)
     }
 }
 
-static void start_array_fn(File *fp, int type_size, char *type_prefix, char *type_str, char *name, char *length_str,
-                           int length_data, char *whitespace)
+static void start_array_fn(File *fp, int type_size, const char *type_prefix, const char *type_str, const char *name,
+                           const char *length_str, int length_data, const char *whitespace)
 {
     new_offset(fp, name);
     if (fp->binary)
@@ -444,7 +443,7 @@ static void add_struct_str_member_fn(File *fp, char **dest, const char *str)
     fp->first_member = 0;
 }
 
-static void add_struct_ptr_member_fn(File *fp, void **dest, OffsetEntry *oe, char *format)
+static void add_struct_ptr_member_fn(File *fp, void **dest, OffsetEntry *oe, const char *format)
 {
     if (fp->binary)
     {
@@ -466,7 +465,7 @@ static void add_struct_ptr_member_fn(File *fp, void **dest, OffsetEntry *oe, cha
     fp->first_member = 0;
 }
 
-static void add_array_ptr_member_fn(File *fp, OffsetEntry *oe, char *format, int last)
+static void add_array_ptr_member_fn(File *fp, OffsetEntry *oe, const char *format, int last)
 {
     if (fp->binary)
     {
@@ -486,7 +485,7 @@ static void add_array_ptr_member_fn(File *fp, OffsetEntry *oe, char *format, int
 }
 
 typedef void (*CopyFuncType)(void *, int);
-static void add_array_member_fn(File *file, CopyFuncType copy, char *format, uint data, int last)
+static void add_array_member_fn(File *file, CopyFuncType copy, const char *format, uint data, int last)
 {
     if (file->binary)
     {
@@ -504,7 +503,7 @@ static void add_array_member_fn(File *file, CopyFuncType copy, char *format, uin
     }
 }
 
-static void end_struct_fn(File *fp, int size, char *whitespace)
+static void end_struct_fn(File *fp, int size, const char *whitespace)
 {
     if (fp->binary)
     {
@@ -516,7 +515,7 @@ static void end_struct_fn(File *fp, int size, char *whitespace)
     }
 }
 
-static void end_struct_in_array(File *fp, char *last)
+static void end_struct_in_array(File *fp, const char *last)
 {
     if (fp->binary)
     {
@@ -528,7 +527,7 @@ static void end_struct_in_array(File *fp, char *last)
     }
 }
 
-static void end_array(File *fp, char *whitespace)
+static void end_array(File *fp, const char *whitespace)
 {
     if (fp->binary)
     {
@@ -596,7 +595,7 @@ copy_func(unsigned_char_copy, uint8) copy_func(unsigned_short_copy, unsigned sho
     }
 }
 
-static char *make_type(int i)
+static const char *make_type(int i)
 {
     switch (i)
     {
@@ -612,12 +611,12 @@ static char *make_type(int i)
     }
 }
 
-static char *scanner_type(State *s)
+static const char *scanner_type(State *s)
 {
     return make_type(scanner_size(s));
 }
 
-static char *make_u_type(int i)
+static const char *make_u_type(int i)
 {
     switch (i)
     {
@@ -633,7 +632,7 @@ static char *make_u_type(int i)
     }
 }
 
-static char *scanner_u_type(State *s)
+static const char *scanner_u_type(State *s)
 {
     return make_u_type(scanner_size(s));
 }
@@ -1706,7 +1705,7 @@ static void write_global_code(FILE *fp, Grammar *g, char *tag)
     }
 }
 
-static char *reduction_args = "(void *_ps, void **_children, int _n_children, int _offset, D_Parser *_parser)";
+static const char *reduction_args = "(void *_ps, void **_children, int _n_children, int _offset, D_Parser *_parser)";
 
 static void write_reductions(File *file, Grammar *g, char *tag)
 {
@@ -2000,7 +1999,7 @@ static void write_error_data(File *fp, Grammar *g, VecState *er_hash, char *tag)
         }
     }
 }
-static char *scan_kind_strings[] = {"D_SCAN_ALL", "D_SCAN_LONGEST", "D_SCAN_MIXED", NULL};
+static const char *scan_kind_strings[] = {"D_SCAN_ALL", "D_SCAN_LONGEST", "D_SCAN_MIXED", NULL};
 
 static void write_state_data(File *fp, Grammar *g, VecState *er_hash, char *tag)
 {
@@ -2252,9 +2251,9 @@ static int write_header(Grammar *g, char *base_pathname, char *tag)
 }
 
 #define is_EBNF(_x) (_x == INTERNAL_CONDITIONAL || _x == INTERNAL_STAR || _x == INTERNAL_PLUS)
-static char *d_internal[] = {"D_SYMBOL_NTERM", "D_SYMBOL_EBNF", "D_SYMBOL_INTERNAL"};
+static const char *d_internal[] = {"D_SYMBOL_NTERM", "D_SYMBOL_EBNF", "D_SYMBOL_INTERNAL"};
 static int d_internal_values[] = {D_SYMBOL_NTERM, D_SYMBOL_EBNF, D_SYMBOL_INTERNAL};
-static char *d_symbol[] = {"D_SYMBOL_STRING", "D_SYMBOL_REGEX", "D_SYMBOL_CODE", "D_SYMBOL_TOKEN"};
+static const char *d_symbol[] = {"D_SYMBOL_STRING", "D_SYMBOL_REGEX", "D_SYMBOL_CODE", "D_SYMBOL_TOKEN"};
 static int d_symbol_values[] = {D_SYMBOL_STRING, D_SYMBOL_REGEX, D_SYMBOL_CODE, D_SYMBOL_TOKEN};
 static void write_symbol_data(File *fp, Grammar *g, char *tag)
 {
