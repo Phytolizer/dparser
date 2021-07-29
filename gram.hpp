@@ -16,57 +16,57 @@ struct ScanState;
 struct ScanStateTransition;
 struct D_ParserTables;
 
-typedef struct Elem Item;
+using Item = Elem;
 
-typedef struct Code
+struct Code
 {
     char *code;
     int line;
-} Code;
+};
 
-typedef struct Goto
+struct Goto
 {
-    struct Elem *elem;
-    struct State *state;
-} Goto;
-typedef Vec(Goto *) VecGoto;
+    Elem *elem;
+    State *state;
+};
+using VecGoto = Vec(Goto *);
 
-typedef enum ActionKind
+enum ActionKind
 {
     ACTION_ACCEPT,
     ACTION_SHIFT,
     ACTION_REDUCE,
     ACTION_SHIFT_TRAILING
-} ActionKind;
-typedef struct Action
+};
+struct Action
 {
     ActionKind kind;
-    struct Term *term;
-    struct Rule *rule;
-    struct State *state;
+    Term *term;
+    Rule *rule;
+    State *state;
     uint index;
     char *temp_string;
-} Action;
-typedef Vec(Action *) VecAction;
+};
+using VecAction = Vec(Action *);
 
-typedef struct Hint
+struct Hint
 {
     uint depth;
-    struct State *state;
-    struct Rule *rule;
-} Hint;
-typedef Vec(Hint *) VecHint;
+    State *state;
+    Rule *rule;
+};
+using VecHint = Vec(Hint *);
 
-typedef Vec(struct ScanStateTransition *) VecScanStateTransition;
-typedef Vec(struct ScanState *) VecScanState;
+using VecScanStateTransition = Vec(ScanStateTransition *);
+using VecScanState = Vec(ScanState *);
 
-typedef struct Scanner
+struct Scanner
 {
     VecScanState states;
     VecScanStateTransition transitions;
-} Scanner;
+};
 
-typedef struct State
+struct State
 {
     uint index;
     uint64 hash;
@@ -85,11 +85,11 @@ typedef struct State
     uint trailing_context : 1;
     uint8 *goto_valid;
     int goto_table_offset;
-    struct State *same_shifts;
-    struct State *reduces_to;
-    struct Rule *reduces_with;
-    struct Rule *reduces_to_then_with;
-} State;
+    State *same_shifts;
+    State *reduces_to;
+    Rule *reduces_with;
+    Rule *reduces_to_then_with;
+};
 
 #define ASSOC_LEFT 0x0001
 #define ASSOC_RIGHT 0x0002
@@ -97,7 +97,7 @@ typedef struct State
 #define ASSOC_UNARY 0x0008
 #define ASSOC_BINARY 0x0010
 
-typedef enum AssocKind
+enum AssocKind
 {
     ASSOC_NONE = 0,
     ASSOC_NARY_LEFT = (ASSOC_NARY | ASSOC_LEFT),
@@ -107,42 +107,39 @@ typedef enum AssocKind
     ASSOC_BINARY_LEFT = (ASSOC_BINARY | ASSOC_LEFT),
     ASSOC_BINARY_RIGHT = (ASSOC_BINARY | ASSOC_RIGHT),
     ASSOC_NO = 0x0020
-} AssocKind;
+};
 #define IS_RIGHT_ASSOC(_x) ((_x)&ASSOC_RIGHT)
-#define IS_LEFT_ASSOC(_x) ((_x)&ASSOC_LEFT)
 #define IS_NARY_ASSOC(_x) ((_x)&ASSOC_NARY)
 #define IS_BINARY_ASSOC(_x) ((_x)&ASSOC_BINARY)
 #define IS_UNARY_ASSOC(_x) ((_x)&ASSOC_UNARY)
 #define IS_UNARY_BINARY_ASSOC(_x) (IS_BINARY_ASSOC(_x) || IS_UNARY_ASSOC(_x))
 #define IS_BINARY_NARY_ASSOC(_x) (IS_BINARY_ASSOC(_x) || IS_NARY_ASSOC(_x))
 /* not valid for NARY */
-#define IS_EXPECT_RIGHT_ASSOC(_x) ((_x) && (_x) != ASSOC_UNARY_LEFT)
-#define IS_EXPECT_LEFT_ASSOC(_x) ((_x) && _x != ASSOC_UNARY_RIGHT)
-typedef struct Rule
+struct Rule
 {
     uint index;
-    struct Production *prod;
+    Production *prod;
     int op_priority;
     AssocKind op_assoc;
     int rule_priority;
     AssocKind rule_assoc;
-    Vec(struct Elem *) elems;
-    struct Elem *end;
+    Vec(Elem *) elems;
+    Elem *end;
     Code speculative_code;
     Code final_code;
     Vec(Code *) pass_code;
     int action_index;
-    struct Rule *same_reduction;
-} Rule;
+    Rule *same_reduction;
+};
 
-typedef enum TermKind
+enum TermKind
 {
     TERM_STRING,
     TERM_REGEX,
     TERM_CODE,
     TERM_TOKEN
-} TermKind;
-typedef struct Term
+};
+struct Term
 {
     TermKind kind;
     uint index;
@@ -155,12 +152,12 @@ typedef struct Term
     uint scan_kind : 3;
     uint ignore_case : 1;
     uint trailing_context : 1;
-    struct Production *regex_production;
-} Term;
+    Production *regex_production;
+};
 
-typedef Vec(Term *) TermVec;
+using TermVec = Vec(Term *);
 
-typedef enum DeclarationKind
+enum DeclarationKind
 {
     DECLARE_TOKENIZE,
     DECLARE_LONGEST_MATCH,
@@ -171,24 +168,24 @@ typedef enum DeclarationKind
     DECLARE_WHITESPACE,
     DECLARE_SAVE_PARSE_TREE,
     DECLARE_NUM
-} DeclarationKind;
-typedef struct Declaration
+};
+struct Declaration
 {
-    struct Elem *elem;
+    Elem *elem;
     uint kind;
     uint index;
-} Declaration;
+};
 
-typedef enum InternalKind
+enum InternalKind
 {
     INTERNAL_NOT,
     INTERNAL_HIDDEN,
     INTERNAL_CONDITIONAL,
     INTERNAL_STAR,
     INTERNAL_PLUS
-} InternalKind;
+};
 
-typedef struct Production
+struct Production
 {
     char *name;
     uint name_len;
@@ -199,23 +196,23 @@ typedef struct Production
     uint internal : 3; /* production used for EBNF */
     uint live : 1;
     Rule *nullable; /* shortest rule for epsilon reduction */
-    struct Production *declaration_group[DECLARE_NUM];
-    struct Declaration *last_declaration[DECLARE_NUM];
+    Production *declaration_group[DECLARE_NUM];
+    Declaration *last_declaration[DECLARE_NUM];
     State *state;            /* state for independent parsing of this productions*/
-    struct Elem *elem;       /* base elem for the item set of the above state */
-    struct Term *regex_term; /* regex production terminal */
+    Elem *elem;       /* base elem for the item set of the above state */
+    Term *regex_term; /* regex production terminal */
     char *regex_term_name;
-    struct Production *next;
-} Production;
+    Production *next;
+};
 
-typedef enum ElemKind
+enum ElemKind
 {
     ELEM_NTERM,
     ELEM_TERM,
     ELEM_UNRESOLVED,
     ELEM_END
-} ElemKind;
-typedef struct Elem
+};
+struct Elem
 {
     ElemKind kind;
     uint index;
@@ -224,15 +221,15 @@ typedef struct Elem
         Production *nterm;
         Term *term;
         void *term_or_nterm;
-        struct Unresolved
+        struct
         {
             char *string;
             uint len;
         } unresolved;
     } e;
-} Elem;
+};
 
-typedef struct Grammar
+struct Grammar
 {
     char *pathname;
     Vec(Production *) productions;
@@ -273,7 +270,7 @@ typedef struct Grammar
     int rule_index;
     int write_line;
     char *write_pathname;
-} Grammar;
+};
 
 /* automatically add %op_XXX to rightmost token of %XXX rule, default off */
 

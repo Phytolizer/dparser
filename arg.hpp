@@ -16,9 +16,9 @@
  */
 struct ArgumentState;
 
-typedef void ArgumentFunction(struct ArgumentState *arg_state, char *arg);
+using ArgumentFunction = void (*)(struct ArgumentState *, char *);
 
-typedef struct
+struct ArgumentDescription
 {
     const char *name;
     char key;
@@ -26,16 +26,16 @@ typedef struct
     const char *type;
     void *location;
     const char *env;
-    ArgumentFunction *pfn;
-} ArgumentDescription;
+    ArgumentFunction pfn;
+};
 
-typedef struct ArgumentState
+struct ArgumentState
 {
     char **file_argument;
     int nfile_arguments;
     const char *program_name;
     ArgumentDescription *desc;
-} ArgumentState;
+};
 
 void usage(ArgumentState *arg_state, char *arg_unused);
 void process_args(ArgumentState *arg_state, char **argv);

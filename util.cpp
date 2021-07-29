@@ -154,26 +154,6 @@ void vec_add_internal(void *v, void *elem)
     av->n++;
 }
 
-int vec_eq(void *v, void *vv)
-{
-    AbstractVec *av = (AbstractVec *)v;
-    AbstractVec *avv = (AbstractVec *)vv;
-    uint i;
-
-    if (av->n != avv->n)
-    {
-        return 0;
-    }
-    for (i = 0; i < av->n; i++)
-    {
-        if (av->v[i] != avv->v[i])
-        {
-            return 0;
-        }
-    }
-    return 1;
-}
-
 void *stack_push_internal(AbstractStack *s, void *elem)
 {
     int n = s->cur - s->start;
@@ -359,103 +339,6 @@ void set_to_vec(void *av)
         }
     }
     FREE(vv.v);
-}
-
-void int_list_diff(int *a, int *b, int *c)
-{
-    while (1)
-    {
-        if (*b < 0)
-        {
-            break;
-        }
-    Lagainc:
-        if (*c < 0)
-        {
-            while (*b >= 0)
-            {
-                *a++ = *b++;
-            }
-            break;
-        }
-    Lagainb:
-        if (*b == *c)
-        {
-            b++;
-            c++;
-            continue;
-        }
-        if (*b < *c)
-        {
-            *a++ = *b++;
-            if (*b < 0)
-            {
-                break;
-            }
-            goto Lagainb;
-        }
-        if (*c < *b)
-        {
-            c++;
-            goto Lagainc;
-        }
-    }
-    *a++ = -1;
-}
-
-void int_list_intersect(int *a, int *b, int *c)
-{
-    while (1)
-    {
-        if (*b < 0)
-        {
-            break;
-        }
-    Lagainc:
-        if (*c < 0)
-        {
-            break;
-        }
-    Lagainb:
-        if (*b == *c)
-        {
-            *a++ = *b++;
-            c++;
-            continue;
-        }
-        if (*b < *c)
-        {
-            b++;
-            if (*b < 0)
-            {
-                break;
-            }
-            goto Lagainb;
-        }
-        if (*c < *b)
-        {
-            c++;
-            goto Lagainc;
-        }
-    }
-    *a++ = -1;
-}
-
-int *int_list_dup(int *aa)
-{
-    int *a = aa, *b, *bb;
-    while (*a != -1)
-    {
-        a++;
-    }
-    bb = b = (int *)MALLOC((a - aa + 1) * sizeof(int));
-    a = aa;
-    while (*a != -1)
-    {
-        *b++ = *a++;
-    }
-    *b++ = -1;
-    return bb;
 }
 
 #define ESC(_c)                                                                                                        \

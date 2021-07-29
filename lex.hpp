@@ -9,22 +9,22 @@
 
 struct Grammar;
 
-typedef struct ScanStateTransition
+struct ScanStateTransition
 {
     uint index;
     VecAction live_diff;
     VecAction accepts_diff;
-} ScanStateTransition;
+};
 
-typedef struct ScanState
+struct ScanState
 {
     uint index;
-    struct ScanState *chars[256];
+    ScanState *chars[256];
     VecAction accepts;
     VecAction live;
     ScanStateTransition *transition[256];
-} ScanState;
+};
 
-void build_scanners(struct Grammar *g);
+void build_scanners(Grammar *g);
 
 #endif

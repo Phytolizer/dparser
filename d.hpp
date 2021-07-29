@@ -74,15 +74,15 @@
 #define tohex2(_x) ((((_x) >> 4) > 9) ? (((_x) >> 4) - 10 + 'A') : (((_x) >> 4) + '0'))
 #define numberof(_x) ((sizeof(_x)) / (sizeof((_x)[0])))
 
-typedef int8_t int8;
-typedef uint8_t uint8;
-typedef int32_t int32;
-typedef uint32_t uint32;
-typedef int64_t int64;
-typedef uint64_t uint64;
-typedef int16_t int16;
-typedef uint16_t uint16;
-typedef unsigned int uint;
+using int8 = int8_t;
+using uint8 = uint8_t;
+using int32 = int32_t;
+using uint32 = uint32_t;
+using int64 = int64_t;
+using uint64 = uint64_t;
+using int16 = int16_t;
+using uint16 = uint16_t;
+using uint = unsigned int;
 
 #ifdef D_DEBUG
 #define DBG(_x)                                                                                                        \

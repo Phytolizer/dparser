@@ -7,12 +7,14 @@
 
 #include "gram.hpp"
 
-typedef struct ShiftResult
+struct SNode;
+
+struct ShiftResult
 {
-    struct SNode *snode;
+    SNode *snode;
     D_Shift *shift;
     d_loc_t loc;
-} ShiftResult;
+};
 
 int scan_buffer(d_loc_t *loc, D_State *st, ShiftResult *result);
 

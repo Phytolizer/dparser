@@ -15,52 +15,52 @@ struct SNode;
 struct ZNode;
 struct Parser;
 
-typedef Vec(struct ZNode *) VecZNode;
-typedef Vec(VecZNode *) VecVecZNode;
-typedef Vec(struct SNode *) VecSNode;
-typedef Vec(struct PNode *) VecPNode;
+using VecZNode = Vec(ZNode *);
+using VecVecZNode = Vec(VecZNode *);
+using VecSNode = Vec(SNode *);
+using VecPNode = Vec(PNode *);
 
-typedef struct PNodeHash
+struct PNodeHash
 {
-    struct PNode **v;
+    PNode **v;
     uint i; /* size index (power of 2) */
     uint m; /* max size (highest prime < i ** 2) */
     uint n; /* size */
-    struct PNode *all;
-} PNodeHash;
+    PNode *all;
+};
 
-typedef struct SNodeHash
+struct SNodeHash
 {
-    struct SNode **v;
+    SNode **v;
     uint i; /* size index (power of 2) */
     uint m; /* max size (highest prime < i ** 2) */
     uint n; /* size */
-    struct SNode *all;
-    struct SNode *last_all;
-} SNodeHash;
+    SNode *all;
+    SNode *last_all;
+};
 
-typedef struct Reduction
+struct Reduction
 {
-    struct ZNode *znode;
-    struct SNode *snode;
-    struct D_Reduction *reduction;
-    struct SNode *new_snode;
+    ZNode *znode;
+    SNode *snode;
+    D_Reduction *reduction;
+    SNode *new_snode;
     int new_depth;
-    struct Reduction *next;
-} Reduction;
+    Reduction *next;
+};
 
-typedef struct Shift
+struct Shift
 {
-    struct SNode *snode;
-    struct Shift *next;
-} Shift;
+    SNode *snode;
+    Shift *next;
+};
 
-typedef struct Parser
+struct Parser
 {
     D_Parser user;
     /* string to parse */
     char *start, *end;
-    struct D_ParserTables *t;
+    D_ParserTables *t;
     /* statistics */
     int states, pnodes, scans, shifts, reductions, compares, ambiguities;
     /* parser state */
@@ -69,33 +69,33 @@ typedef struct Parser
     Reduction *reductions_todo;
     Shift *shifts_todo;
     D_Scope *top_scope;
-    struct SNode *accept;
+    SNode *accept;
     int last_syntax_error_line;
     /* memory management */
     Reduction *free_reductions;
     Shift *free_shifts;
     int live_pnodes;
-    struct PNode *free_pnodes;
-    struct SNode *free_snodes;
-    struct ZNode *free_znodes;
+    PNode *free_pnodes;
+    SNode *free_snodes;
+    ZNode *free_znodes;
     Vec(D_Reduction *) error_reductions;
     ShiftResult *shift_results;
     int nshift_results;
     D_Shift *code_shifts;
     int ncode_shifts;
     /* comments */
-    struct Parser *whitespace_parser;
+    Parser *whitespace_parser;
     /* interface support */
     void *pinterface1;
 #ifdef TRACK_PNODES
     struct PNode *xall;
 #endif
-} Parser;
+};
 
 /*
   Parse Node - the 'symbol' and the constructed parse subtrees.
 */
-typedef struct PNode
+struct PNode
 {
     uint hash;
     AssocKind assoc;
@@ -111,25 +111,25 @@ typedef struct PNode
     D_Reduction *reduction;
     D_Shift *shift;
     VecPNode children;
-    struct PNode *all_next;
-    struct PNode *bucket_next;
-    struct PNode *ambiguities;
-    struct PNode *latest; /* latest version of this PNode */
+    PNode *all_next;
+    PNode *bucket_next;
+    PNode *ambiguities;
+    PNode *latest; /* latest version of this PNode */
     char *ws_before;
     char *ws_after;
     D_Scope *initial_scope;
     void *initial_globals;
 #ifdef TRACK_PNODES
-    struct PNode *xnext;
-    struct PNode *xprev;
+    PNode *xnext;
+    PNode *xprev;
 #endif
     D_ParseNode parse_node; /* public fields */
-} PNode;
+};
 
 /*
   State Node - the 'state'.
 */
-typedef struct SNode
+struct SNode
 {
     d_loc_t loc;
 #ifndef USE_GC
@@ -142,18 +142,18 @@ typedef struct SNode
     void *initial_globals;
     PNode *last_pn;
     VecZNode zns;
-    struct SNode *bucket_next;
-    struct SNode *all_next;
-} SNode;
+    SNode *bucket_next;
+    SNode *all_next;
+};
 
 /*
   (Z)Symbol Node - holds one of the symbols associated with a state.
 */
-typedef struct ZNode
+struct ZNode
 {
     PNode *pn;
     VecSNode sns;
-} ZNode;
+};
 #define znode_next(_z) (*(ZNode **)&((_z)->pn))
 
 D_ParseNode *ambiguity_count_fn(D_Parser *pp, int n, D_ParseNode **v);
