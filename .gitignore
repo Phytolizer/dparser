@@ -13,3 +13,4 @@ sample_parser
 /.install
 /.cache
 /build
+/cmake-build-*
