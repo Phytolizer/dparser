@@ -14,3 +14,4 @@ sample_parser
 /.cache
 /build
 /cmake-build-*
+/.vscode
