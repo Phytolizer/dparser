@@ -20,6 +20,9 @@ add_executable(make_dparser
   make_dparser.cpp
   version.cpp
 )
+find_package(fmt REQUIRED)
+target_compile_features(make_dparser PRIVATE cxx_std_20)
+target_link_libraries(make_dparser PRIVATE fmt::fmt)
 
 add_executable(sample_parser
   sample_parser.cpp
@@ -27,6 +30,8 @@ add_executable(sample_parser
   ${CMAKE_CURRENT_BINARY_DIR}/sample.g.d_parser.cpp
 )
 add_dependencies(sample_parser make_dparser)
+target_compile_features(sample_parser PRIVATE cxx_std_20)
+target_link_libraries(sample_parser PRIVATE fmt::fmt)
 
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/sample.g.d_parser.cpp
   DEPENDS make_dparser sample.g
@@ -40,6 +45,8 @@ add_executable(test_parser
   ${CMAKE_CURRENT_BINARY_DIR}/my.g.d_parser.cpp
 )
 add_dependencies(test_parser make_dparser)
+target_compile_features(test_parser PRIVATE cxx_std_20)
+target_link_libraries(test_parser PRIVATE fmt::fmt)
 
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/my.g.d_parser.cpp
   DEPENDS make_dparser my.g
@@ -56,6 +63,8 @@ add_library(mkdparse STATIC
   lr.cpp
   version.cpp
 )
+target_compile_features(mkdparse PUBLIC cxx_std_20)
+target_link_libraries(mkdparse PUBLIC fmt::fmt)
 
 add_library(dparse STATIC
   arg.cpp
@@ -67,6 +76,8 @@ add_library(dparse STATIC
   dparse_tree.cpp
   version.cpp
 )
+target_compile_features(dparse PUBLIC cxx_std_20)
+target_link_libraries(dparse PUBLIC fmt::fmt)
 
 target_link_libraries(make_dparser PRIVATE mkdparse dparse)
 target_link_libraries(sample_parser PRIVATE mkdparse dparse)
