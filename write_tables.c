@@ -266,21 +266,22 @@ array of structs:
       fprintf((file)->fp, string);                                             \
     }                                                                          \
   } while (0)
-#define add_struct_str_member(file, struct_type, string, member_name) \
-  if (file != NULL) {							\
-    if ((struct_type *)(file)->tables.cur != NULL) {			\
+#define add_struct_str_member(file, struct_type, string, member_name)                                     \
+  if (file != NULL) {                                                                                     \
+    if ((struct_type *)(file)->tables.cur != NULL) {                                                      \
       add_struct_str_member_fn(file, (char **)&((struct_type *)(file)->tables.cur)->member_name, string); \
-    } else {								\
-      add_struct_str_member_fn(file, NULL, string);			\
-    }									\
+    } else {                                                                                              \
+      add_struct_str_member_fn(file, NULL, string);                                                       \
+    }                                                                                                     \
   }
-#define add_struct_ptr_member(file, struct_type, ampersand, entry, member_name) \
-  if (file != NULL) {							\
-    if ((struct_type *)(file)->tables.cur != NULL) {			\
-      add_struct_ptr_member_fn(file, (void **)&((struct_type *)(file)->tables.cur)->member_name, entry, ampersand "%s"); \
-    } else {								\
-      add_struct_ptr_member_fn(file, NULL, entry, ampersand "%s");	\
-    }									\
+#define add_struct_ptr_member(file, struct_type, ampersand, entry, member_name)                         \
+  if (file != NULL) {                                                                                   \
+    if ((struct_type *)(file)->tables.cur != NULL) {                                                    \
+      add_struct_ptr_member_fn(file, (void **)&((struct_type *)(file)->tables.cur)->member_name, entry, \
+                               ampersand "%s");                                                         \
+    } else {                                                                                            \
+      add_struct_ptr_member_fn(file, NULL, entry, ampersand "%s");                                      \
+    }                                                                                                   \
   }
 
 #define add_array_member(file, type, format, data, last)       \
@@ -576,7 +577,7 @@ static void write_scanner_data(File *fp, Grammar *g, char *tag) {
     if (t->regex_production && t->regex_production->rules.v[0]->speculative_code.code) {
       assert(!fp->binary);
       snprintf(speculative_code, 255, "d_speculative_reduction_code_%d_%d_%s", t->regex_production->index,
-              t->regex_production->rules.v[0]->index, tag);
+               t->regex_production->rules.v[0]->index, tag);
     } else {
       strcpy(speculative_code, "NULL");
     }
@@ -1272,7 +1273,8 @@ static void write_reductions(File *file, Grammar *g, char *tag) {
       if (r->same_reduction) continue;
       if (r->speculative_code.code) {
         char fname[256];
-        snprintf(fname, 255, "int d_speculative_reduction_code_%d_%d_%s%s ", r->prod->index, r->index, tag, reduction_args);
+        snprintf(fname, 255, "int d_speculative_reduction_code_%d_%d_%s%s ", r->prod->index, r->index, tag,
+                 reduction_args);
         write_code(fp, g, r, r->speculative_code.code, fname, r->speculative_code.line, g->pathname);
       }
       if (r->final_code.code) {
@@ -1290,7 +1292,8 @@ static void write_reductions(File *file, Grammar *g, char *tag) {
       if (r->speculative_code.code)
         snprintf(speculative_code, 255, "d_speculative_reduction_code_%d_%d_%s", r->prod->index, r->index, tag);
       else if (rdefault && rdefault->speculative_code.code)
-        snprintf(speculative_code, 255, "d_speculative_reduction_code_%d_%d_%s", rdefault->prod->index, rdefault->index, tag);
+        snprintf(speculative_code, 255, "d_speculative_reduction_code_%d_%d_%s", rdefault->prod->index, rdefault->index,
+                 tag);
       else
         strcpy(speculative_code, "NULL");
       if (r->final_code.code)
@@ -1682,7 +1685,7 @@ void write_parser_tables(Grammar *g, char *tag, File *file) {
     add_struct_ptr_member(file, D_ParserTables, "", &null_entry, default_white_space);
   }
   add_struct_member(file, D_ParserTables, "%d", g->passes.n, npasses);
-  if (g->passes.n){
+  if (g->passes.n) {
     add_struct_ptr_member(file, D_ParserTables, "", get_offset(file, "d_passes_%s", tag), passes);
   } else {
     add_struct_ptr_member(file, D_ParserTables, "", &null_entry, passes);

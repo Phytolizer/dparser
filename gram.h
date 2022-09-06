@@ -76,10 +76,10 @@ typedef struct State {
   struct Rule *reduces_to_then_with;
 } State;
 
-#define ASSOC_LEFT   0x0001
-#define ASSOC_RIGHT  0x0002
-#define ASSOC_NARY   0x0004
-#define ASSOC_UNARY  0x0008
+#define ASSOC_LEFT 0x0001
+#define ASSOC_RIGHT 0x0002
+#define ASSOC_NARY 0x0004
+#define ASSOC_UNARY 0x0008
 #define ASSOC_BINARY 0x0010
 
 typedef enum AssocKind {

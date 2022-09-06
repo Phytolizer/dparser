@@ -225,7 +225,9 @@ static int actioncmp(const void *aa, const void *bb) {
   return ((i > j) ? 1 : ((i < j) ? -1 : 0));
 }
 
-void sort_VecAction(VecAction *v) { if (v->v != NULL) qsort(v->v, v->n, sizeof(Action *), actioncmp); }
+void sort_VecAction(VecAction *v) {
+  if (v->v != NULL) qsort(v->v, v->n, sizeof(Action *), actioncmp);
+}
 
 static void build_actions(Grammar *g) {
   uint x, y, z;
@@ -333,7 +335,8 @@ static void build_error_recovery(Grammar *g) {
       Ldone:;
       }
     }
-    if (s->error_recovery_hints.v != NULL) qsort(s->error_recovery_hints.v, s->error_recovery_hints.n, sizeof(Hint *), hintcmp);
+    if (s->error_recovery_hints.v != NULL)
+      qsort(s->error_recovery_hints.v, s->error_recovery_hints.n, sizeof(Hint *), hintcmp);
   }
 }
 

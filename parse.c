@@ -679,10 +679,8 @@ void heapify(VecPNode *a, uint i) {
     uint largest = i;
     uint l = 2 * i + 1;
     uint r = 2 * i + 2;
-    if (l < a->n && a->v[l]->height > a->v[largest]->height)
-      largest = l;
-    if (r < a->n && a->v[r]->height > a->v[largest]->height)
-      largest = r;
+    if (l < a->n && a->v[l]->height > a->v[largest]->height) largest = l;
+    if (r < a->n && a->v[r]->height > a->v[largest]->height) largest = r;
     if (largest != i) {
       PNode *temp = a->v[largest];
       a->v[largest] = a->v[i];
@@ -702,10 +700,9 @@ void heap_insert(VecPNode *a, PNode *pn) {
 PNode *heap_pop(VecPNode *a) {
   if (a->n == 0) return NULL;
   PNode *pn = a->v[0];
-  a->v[0] = a->v[a->n -1];
+  a->v[0] = a->v[a->n - 1];
   a->n--;
-  for (int i = a->n / 2 - 1; i >= 0; i--)
-    heapify(a, i);
+  for (int i = a->n / 2 - 1; i >= 0; i--) heapify(a, i);
   return pn;
 }
 
@@ -716,8 +713,7 @@ static void get_children(Parser *p, PNode *pn, VecPNode *ps, VecPNode *ps2, VecP
       PNode *c = pn->children.v[i];
       LATEST(p, c);
       if (set_add(ps, c)) {
-        if (!set_find(ps2, c))
-          heap_insert(ph, c);
+        if (!set_find(ps2, c)) heap_insert(ph, c);
       }
     }
   }
@@ -921,8 +917,8 @@ static PNode *make_PNode(Parser *p, uint hash, int symbol, d_loc_t *start_loc, c
       dummy.action_index = sh->action_index;
       new_pn->reduction = &dummy;
       void **v0 = new_pn->children.v == NULL ? NULL : (void **)&new_pn->children.v[0];
-      if (sh->speculative_code(new_pn, v0, new_pn->children.n,
-                               (intptr_t)(sizeof(PNode) - sizeof(D_ParseNode)), (D_Parser *)p)) {
+      if (sh->speculative_code(new_pn, v0, new_pn->children.n, (intptr_t)(sizeof(PNode) - sizeof(D_ParseNode)),
+                               (D_Parser *)p)) {
         free_PNode(p, new_pn);
         return NULL;
       }
@@ -1568,9 +1564,8 @@ static PNode *commit_tree(Parser *p, PNode *pn) {
   }
   if (pn->reduction) DBG(printf("commit %p (%s)\n", (void *)pn, p->t->symbols[pn->parse_node.symbol].name));
   if (pn->reduction && pn->reduction->final_code) {
-    void **v0 = pn->children.v == NULL ?  NULL : (void **)&pn->children.v[0];
-    pn->reduction->final_code(pn, v0, pn->children.n, (intptr_t)(sizeof(PNode) - sizeof(D_ParseNode)),
-                              (D_Parser *)p);
+    void **v0 = pn->children.v == NULL ? NULL : (void **)&pn->children.v[0];
+    pn->reduction->final_code(pn, v0, pn->children.n, (intptr_t)(sizeof(PNode) - sizeof(D_ParseNode)), (D_Parser *)p);
   }
   if (pn->evaluated) {
     if (!p->user.save_parse_tree && !internal) free_ParseTreeBelow(p, pn);
