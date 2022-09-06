@@ -18,6 +18,7 @@ add_executable(make_dparser
   make_dparser.c
   version.c
 )
+add_executable(dparser::make_dparser ALIAS make_dparser)
 
 add_executable(sample_parser
   sample_parser.c
@@ -65,6 +66,7 @@ add_library(dparse STATIC
   dparse_tree.c
   version.c
 )
+add_library(dparser::dparse ALIAS dparse)
 
 target_link_libraries(make_dparser PRIVATE mkdparse dparse)
 target_link_libraries(sample_parser PRIVATE mkdparse dparse)
